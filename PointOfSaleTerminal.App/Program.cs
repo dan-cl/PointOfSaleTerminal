@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PointOfSaleTerminal.App
 {
@@ -6,7 +7,8 @@ namespace PointOfSaleTerminal.App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var optionsMenu = new OptionsMenu(new List<Product>());
+            optionsMenu.StartMenu();
         }
     }
 }
