@@ -1,4 +1,8 @@
-﻿namespace PointOfSaleTerminal.App
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace PointOfSaleTerminal.App
 {
     public class ProductFactory
     {
@@ -21,6 +25,21 @@
             
             _product.ProductId = productId;
             return true;
+        }
+
+        public bool ValidUnitPrice(string unitPrice)
+        {
+            var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            var culture = CultureInfo.CreateSpecificCulture("en-AU");
+
+            if (decimal.TryParse(unitPrice, style, culture, out var number))
+            {
+                _product.UnitPrice = number;
+                return true;
+
+            }
+
+            return false;
         }
     }
 }

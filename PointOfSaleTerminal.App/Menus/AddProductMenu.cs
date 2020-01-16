@@ -18,7 +18,23 @@ namespace PointOfSaleTerminal.App.Menus
 
         public void DisplayMenu()
         {
-            DisplayMessageAndValidateResponse("Enter product ID:", "Product ID must be 1 character", _productFactory.ValidProductId);
+            EnterProductIdMessage();
+            EnterUnitPriceMessage();
+        }
+
+        private void EnterProductIdMessage()
+        {
+            const string message = "Enter product ID:";
+            const string invalidInputMessage = "Invalid product ID, Product ID must be 1 character";
+            DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidProductId);
+        }
+
+        private void EnterUnitPriceMessage()
+        {
+            const string message = "Enter unit price:";
+            const string invalidInputMessage = "Invalid unit price, unit price must be a number ";
+            DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidUnitPrice);
+
         }
 
         public void DisplayMessageAndValidateResponse(string message, string invalidInputMessage, InputValidator inputValidator)
