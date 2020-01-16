@@ -29,17 +29,44 @@ namespace PointOfSaleTerminal.App
 
         public bool ValidUnitPrice(string unitPrice)
         {
-            var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
-            var culture = CultureInfo.CreateSpecificCulture("en-AU");
-
-            if (decimal.TryParse(unitPrice, style, culture, out var number))
+            if (ValidatePrice(unitPrice, out var result))
             {
-                _product.UnitPrice = number;
+                _product.UnitPrice = result;
                 return true;
-
             }
 
             return false;
+        }
+
+        public bool ValidPackSize(string packSize)
+        {
+            if (int.TryParse(packSize, out var result))
+            {
+                _product.PackSize = result;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool ValidPackPrice(string packPrice)
+        {
+            if (ValidatePrice(packPrice, out var result))
+            {
+                _product.PackPrice = result;
+                return true;
+            }
+
+            return false;
+        }
+
+
+
+        private static bool ValidatePrice(string price, out decimal result)
+        {
+            var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
+            var culture = CultureInfo.CreateSpecificCulture("en-AU");
+            return decimal.TryParse(price, style, culture, out result);
         }
     }
 }
