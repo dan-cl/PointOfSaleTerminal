@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PointOfSaleTerminal.App.Menus;
 
 namespace PointOfSaleTerminal.App
 {
@@ -7,8 +8,9 @@ namespace PointOfSaleTerminal.App
     {
         static void Main(string[] args)
         {
-            var optionsMenu = new OptionsMenu(new List<Product>());
-            optionsMenu.StartMenu();
+            var productList = new List<IProduct>();
+            var startMenu = new StartMenu(new AddProductMenu(productList, new ProductFactory()));
+            startMenu.DisplayMenu();
         }
     }
 }

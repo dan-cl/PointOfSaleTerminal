@@ -2,10 +2,10 @@
 {
     public class BasketItem
     {
-        public Product Product { get; private set; }
+        public IProduct Product { get; private set; }
         public int Quantity { get; private set; }
 
-        public BasketItem(Product product)
+        public BasketItem(IProduct product)
         {
             Product = product;
         }
