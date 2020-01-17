@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using Moq;
 using PointOfSaleTerminal.App;
 using Xunit;
