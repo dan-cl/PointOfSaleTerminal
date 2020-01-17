@@ -9,7 +9,8 @@ namespace PointOfSaleTerminal.App
         static void Main(string[] args)
         {
             var productList = new HashSet<IProduct>(new ProductEqualityComparer());
-            var terminal = new Terminal(productList);
+            var basket = new Basket();
+            var terminal = new Terminal(productList, basket);
             terminal.Start();
         }
     }
