@@ -26,10 +26,12 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuOne()
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Welcome to the terminal, press 1 to add product to the system or 9 to exit");
+                Console.WriteLine("Welcome to the terminal \n\nOPTIONS \n1: Add product to the system \n9: Exit terminal");
                 switch (Console.ReadLine())
                 {
                     case "1":
@@ -42,7 +44,7 @@ namespace PointOfSaleTerminal.App
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Invalid input\n");
+                        Console.Clear();
                         break;
                 }
             }
@@ -50,15 +52,17 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuTwo()
         {
+            Console.Clear();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Press 1 to add another product, 2 to start scanning items or 9 to exit");
+                Console.WriteLine("OPTIONS \n\n1 Add another product \n2 Start scanning items \n9 Exit");
                 switch (Console.ReadLine())
                 {
                     case "1":
                         var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
                         addProductMenu.DisplayMenu();
+                        Console.Clear();
                         break;
                     case "2":
                         exitMenu = true;
@@ -68,7 +72,7 @@ namespace PointOfSaleTerminal.App
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Invalid input\n");
+                        Console.Clear();
                         break;
                 }
             }
@@ -76,18 +80,15 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuThree()
         {
+            ClearConsoleAndPrintBasket();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Enter the product ID to scan an item. Enter 1 to view the basket, 2 to finish scanning or 9 to exit");
+                Console.WriteLine("OPTIONS \n\nEnter the product ID to scan an item OR \n1 Finish scanning \n9 Exit");
                 var input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        _basket.PrintBasketContents();
-                        continue;
-
-                    case "2":
                         exitMenu = true;
                         break;
 
@@ -103,29 +104,30 @@ namespace PointOfSaleTerminal.App
                 if (product != null)
                 {
                     _basket.AddToBasket(product);
-                    Console.WriteLine("Product added to basket");
+                    ClearConsoleAndPrintBasket();
+                    Console.WriteLine("Product added to basket\n\n");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid product code entered");
+                    Console.Clear();
+                    Console.WriteLine("Invalid product code entered\n\n");
                 }
             }
         }
 
         private void DisplayMenuFour()
         {
+            ClearConsoleAndPrintBasket();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Enter 1 to view the Basket, 2 to calculate total or 9 to exit");
+                Console.WriteLine("OPTIONS: \n1 Calculate total \n9 Exit");
                 var input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        _basket.PrintBasketContents();
-                        break;
-                    case "2":
-                        Console.WriteLine(_basket.CalculateBasketTotal());
+                        Console.Clear();
+                        Console.WriteLine($"BASKET TOTAL: {_basket.CalculateBasketTotal():C}\n\n\n");
                         exitMenu = true;
                         break;
                     case "9":
@@ -134,6 +136,13 @@ namespace PointOfSaleTerminal.App
                         break;
                 }
             }
+        }
+
+        private void ClearConsoleAndPrintBasket()
+        {
+            Console.Clear();
+            _basket.PrintBasketContents();
+
         }
     }
 }

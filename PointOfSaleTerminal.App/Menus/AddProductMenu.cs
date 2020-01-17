@@ -27,30 +27,30 @@ namespace PointOfSaleTerminal.App.Menus
 
         private void EnterProductIdMessage()
         {
-            const string message = "Enter product ID:";
-            const string invalidInputMessage = "Invalid product ID, Product ID must be a single letter";
+            const string message = "\nEnter product ID:";
+            const string invalidInputMessage = "\nInvalid product ID, Product ID must be a single letter";
             DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidProductId);
         }
 
         private void EnterUnitPriceMessage()
         {
-            const string message = "Enter unit price:";
-            const string invalidInputMessage = "Invalid unit price, unit price must be a number";
+            const string message = "\nEnter unit price:";
+            const string invalidInputMessage = "\nInvalid unit price, unit price must be a number";
             DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidUnitPrice);
         }
 
         private void EnterPackSizeMessage()
         {
-            const string message = "Enter pack size, enter 0 to skip:";
-            const string invalidInputMessage = "Invalid pack size, pack size must be a whole number";
+            const string message = "\nEnter pack size, enter 0 to skip:";
+            const string invalidInputMessage = "\nInvalid pack size, pack size must be a whole number";
             DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidPackSize);
         }
 
         private void EnterPackPriceMessage()
         {
-            const string message = "Enter pack price, enter 0 to skip:";
-            const string invalidInputMessage = "Invalid pack price, pack price must be a number";
-            DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidPackSize);
+            const string message = "\nEnter pack price, enter 0 to skip:";
+            const string invalidInputMessage = "\nInvalid pack price, pack price must be a number";
+            DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidPackPrice);
         }
 
         private void AddProductToSystem()
@@ -61,13 +61,15 @@ namespace PointOfSaleTerminal.App.Menus
         private static void DisplayMessageAndValidateResponse(string message, string invalidInputMessage, InputValidator inputValidator)
         {
             bool finished = false;
-            
+            Console.Clear();
             while (!finished)
             {
                 Console.WriteLine(message);
                 finished = inputValidator(Console.ReadLine());
-                  if(!finished)
-                    Console.WriteLine(invalidInputMessage);
+                if (finished) continue;
+
+                Console.Clear();
+                Console.WriteLine(invalidInputMessage);
             }
         }
     }

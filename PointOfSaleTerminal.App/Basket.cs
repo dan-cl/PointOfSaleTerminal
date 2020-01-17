@@ -41,9 +41,21 @@ namespace PointOfSaleTerminal.App
 
         public void PrintBasketContents()
         {
-            foreach (var basketItem in BasketItems)
+            if (BasketItems.Count == 0)
             {
-                Console.WriteLine(basketItem.Product.ProductId);
+                Console.WriteLine("Basket Empty!\n\n");
+            }
+            else
+            {
+                Console.WriteLine("BASKET:");
+                Console.WriteLine($"({"ProductID",5} {"Quantity", 10})");
+                foreach (var basketItem in BasketItems)
+                {
+                    var productId = basketItem.Product.ProductId;
+                    var quantity = basketItem.Quantity;
+                    Console.WriteLine($"{productId,5} {quantity,10}");
+                }
+                Console.WriteLine("\n\n");
             }
         }
         public decimal CalculateBasketTotal()
