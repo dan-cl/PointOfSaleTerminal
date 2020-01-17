@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PointOfSaleTerminal.App.Menus;
+using PointOfSaleTerminal.App.Basket;
+using PointOfSaleTerminal.App.Product;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Menus
 {
-    public class Terminal
+    public class MainMenu
     {
         private readonly HashSet<IProduct> _productList;
         private readonly IBasket _basket;
 
-        public Terminal(HashSet<IProduct> productList, IBasket basket)
+        public MainMenu(HashSet<IProduct> productList, IBasket basket)
         {
             _productList = productList;
             _basket = basket;
@@ -109,7 +110,7 @@ namespace PointOfSaleTerminal.App
                 }
                 else
                 {
-                    Console.Clear();
+                    ClearConsoleAndPrintBasket();
                     Console.WriteLine("Invalid product code entered\n\n");
                 }
             }
@@ -117,10 +118,10 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuFour()
         {
-            ClearConsoleAndPrintBasket();
             var exitMenu = false;
             while (!exitMenu)
             {
+                ClearConsoleAndPrintBasket();
                 Console.WriteLine("OPTIONS: \n1 Calculate total \n9 Exit");
                 var input = Console.ReadLine();
                 switch (input)

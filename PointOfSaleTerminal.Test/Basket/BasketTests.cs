@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using PointOfSaleTerminal.App;
+using PointOfSaleTerminal.App.Basket;
+using PointOfSaleTerminal.App.Product;
 using Xunit;
 
-namespace PointOfSaleTerminal.Test
+namespace PointOfSaleTerminal.Test.Basket
 {
     public class BasketTests
     {
@@ -17,7 +18,7 @@ namespace PointOfSaleTerminal.Test
         public void AddToBasket_ProductNotAlreadyInBasket_AddsProductToBasket()
         {
             //Arrange
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
             var mock = new Mock<IProduct>();
 
             //Act
@@ -33,7 +34,7 @@ namespace PointOfSaleTerminal.Test
         public void AddToBasket_ProductAlreadyInBasket_DoesNotAddProductToBasket()
         {
             //Arrange
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
             var mock = new Mock<IProduct>();
 
             //Act
@@ -52,7 +53,7 @@ namespace PointOfSaleTerminal.Test
         {
             //Arrange
             var productList = new List<IProduct>();
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
 
             SetupMockProducts(productList);
 

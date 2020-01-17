@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Product
 {
     public class ProductFactory
     {
@@ -11,7 +10,7 @@ namespace PointOfSaleTerminal.App
 
         public ProductFactory()
         {
-            _product = new Product();
+            _product = new App.Product.Product();
         }
 
         public ProductFactory(IProduct product)

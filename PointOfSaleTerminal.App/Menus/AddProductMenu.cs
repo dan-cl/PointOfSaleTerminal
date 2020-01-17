@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using PointOfSaleTerminal.App.Product;
 
 namespace PointOfSaleTerminal.App.Menus
 {
-    public class AddProductMenu : IMenu
+    public class AddProductMenu
     {
         private readonly HashSet<IProduct> _productList;
         private readonly ProductFactory _productFactory;

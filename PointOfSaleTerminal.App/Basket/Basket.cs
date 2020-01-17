@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using PointOfSaleTerminal.App.Product;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Basket
 {
     public interface IBasket
     {
@@ -82,17 +82,5 @@ namespace PointOfSaleTerminal.App
             var totalDiscount = product.DiscountPerPack * numberOfPacks;
             return totalDiscount;
         }
-
-        //private decimal CalculateDiscount(IBasketItem basketItem)
-        //{
-        //    var product = basketItem.Product;
-        //    var packSize = product.PackSize;
-        //    var discountPerPack = product.PackPrice * product.UnitPrice - product.PackPrice;
-        //    int numberOfPacks = basketItem.Quantity / packSize;
-        //    if (numberOfPacks >= 1)
-        //        return numberOfPacks * discountPerPack;
-
-        //    return 0;
-        //}
     }
 }

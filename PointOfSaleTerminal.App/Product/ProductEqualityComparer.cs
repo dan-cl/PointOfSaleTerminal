@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Product
 {
     public interface IProductEqualityComparer
     {

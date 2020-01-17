@@ -1,4 +1,6 @@
-﻿namespace PointOfSaleTerminal.App
+﻿using PointOfSaleTerminal.App.Product;
+
+namespace PointOfSaleTerminal.App.Basket
 {
     public interface IBasketItem
     {

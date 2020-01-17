@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Moq;
-using PointOfSaleTerminal.App;
+using PointOfSaleTerminal.App.Product;
 using Xunit;
 
-namespace PointOfSaleTerminal.Test
+namespace PointOfSaleTerminal.Test.Product
 {
     public class ProductFactoryTests
     {

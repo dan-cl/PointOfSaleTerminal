@@ -1,4 +1,4 @@
-﻿namespace PointOfSaleTerminal.App
+﻿namespace PointOfSaleTerminal.App.Product
 {
     public interface IProduct
     {
