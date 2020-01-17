@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PointOfSaleTerminal.App
+﻿namespace PointOfSaleTerminal.App
 {
     public interface IProduct
     {
@@ -16,10 +14,5 @@ namespace PointOfSaleTerminal.App
         public decimal UnitPrice { get; set;  }   
         public int PackSize { get; set;  }
         public decimal PackPrice { get; set;  }
-
-        public Product()
-        {
-            
-        }
     }
 }

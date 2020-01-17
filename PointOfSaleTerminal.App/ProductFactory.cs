@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace PointOfSaleTerminal.App
 {
@@ -23,7 +22,7 @@ namespace PointOfSaleTerminal.App
             if (productId.Length != 1)
                 return false; 
             
-            _product.ProductId = productId;
+            _product.ProductId = productId.ToUpper();
             return true;
         }
 
@@ -60,7 +59,10 @@ namespace PointOfSaleTerminal.App
             return false;
         }
 
-
+        public void AddProductToSystem(HashSet<IProduct> productList)
+        {
+            productList.Add(_product);
+        }
 
         private static bool ValidatePrice(string price, out decimal result)
         {

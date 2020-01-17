@@ -8,7 +8,7 @@ namespace PointOfSaleTerminal.App
     {
         static void Main(string[] args)
         {
-            var productList = new List<IProduct>();
+            var productList = new HashSet<IProduct>(new ProductEqualityComparer());
             var startMenu = new StartMenu(new AddProductMenu(productList, new ProductFactory()));
             startMenu.DisplayMenu();
         }

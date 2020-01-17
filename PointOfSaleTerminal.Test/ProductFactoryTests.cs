@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.ComTypes;
+﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Moq;
 using PointOfSaleTerminal.App;
 using Xunit;
@@ -328,5 +329,55 @@ namespace PointOfSaleTerminal.Test
             }
         }
 
+        public class AddProductToSystemTests : ProductFactoryTests
+        {
+            private Mock<IProduct> _mockProduct1;
+            private Mock<IProduct> _mockProduct2;
+            private HashSet<IProduct> _productList;
+            private ProductFactory _productFactory;
+            //private string productId1 = "A";
+            //private string productId2 = "B";
+
+
+            [Theory]
+            [InlineData("A", "B")]
+            public void AddProductToSystem_ProductIdIsUnique_AddsTheProductToTheProductHashSet(string productId1, string productId2)
+            {
+                //Arrange
+                SetUpAddProductTest(productId1, productId2);
+
+                //Act
+                _productFactory.AddProductToSystem(_productList);
+
+                //Assert
+                Assert.True(_productList.Count == 2);
+            }
+
+            [Theory]
+            [InlineData("A", "A")]
+            [InlineData("A", "a")]
+            public void AddProductToSystem_ProductIdIsNotUnique_DoesNotAddTheProductToTheProductHashSet(string productId1, string productId2)
+            {
+                //Arrange
+                SetUpAddProductTest(productId1, productId2);
+
+                //Act
+                _productFactory.AddProductToSystem(_productList);
+
+                //Assert
+                Assert.True(_productList.Count == 1);
+            }
+
+
+            private void SetUpAddProductTest(string productId1, string productId2)
+            {
+                _mockProduct1 = new Mock<IProduct>();
+                _mockProduct2 = new Mock<IProduct>();
+                _mockProduct1.Setup(x => x.ProductId).Returns(productId1);
+                _mockProduct2.Setup(x => x.ProductId).Returns(productId2);
+                _productList = new HashSet<IProduct>(new ProductEqualityComparer()) { _mockProduct1.Object };
+                _productFactory = new ProductFactory(_mockProduct2.Object);
+            }
+        }
     }
 }

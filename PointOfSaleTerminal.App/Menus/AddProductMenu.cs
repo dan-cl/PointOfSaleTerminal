@@ -5,12 +5,12 @@ namespace PointOfSaleTerminal.App.Menus
 {
     public class AddProductMenu : IMenu
     {
-        private IList<IProduct> _productList;
+        private readonly HashSet<IProduct> _productList;
         private readonly ProductFactory _productFactory;
 
         public delegate bool InputValidator(string input);
 
-        public AddProductMenu(IList<IProduct> productList, ProductFactory productFactory)
+        public AddProductMenu(HashSet<IProduct> productList, ProductFactory productFactory)
         {
             _productList = productList;
             _productFactory = productFactory;
@@ -21,7 +21,8 @@ namespace PointOfSaleTerminal.App.Menus
             EnterProductIdMessage();
             EnterUnitPriceMessage();
             EnterPackSizeMessage();
-            EnterPackSizeMessage();
+            EnterPackPriceMessage();
+            AddProductToSystem();
         }
 
         private void EnterProductIdMessage()
@@ -52,7 +53,10 @@ namespace PointOfSaleTerminal.App.Menus
             DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidPackSize);
         }
 
-
+        private void AddProductToSystem()
+        {
+            _productFactory.AddProductToSystem(_productList);
+        }
 
         private static void DisplayMessageAndValidateResponse(string message, string invalidInputMessage, InputValidator inputValidator)
         {
