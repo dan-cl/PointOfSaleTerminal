@@ -21,7 +21,7 @@ namespace PointOfSaleTerminal.App
 
         public bool ValidProductId(string productId)
         {
-            if (productId.Length != 1 || !productId.All(Char.IsLetter))
+            if (productId.Length != 1 || !productId.All(char.IsLetter))
                 return false; 
             
             _product.ProductId = productId.ToUpper();

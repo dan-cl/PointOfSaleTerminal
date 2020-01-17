@@ -21,6 +21,7 @@ namespace PointOfSaleTerminal.App
             DisplayMenuOne();
             DisplayMenuTwo();
             DisplayMenuThree();
+            DisplayMenuFour();
         }
 
         private void DisplayMenuOne()
@@ -78,13 +79,18 @@ namespace PointOfSaleTerminal.App
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Enter the product ID to scan an item, enter 1 to finish scanning or 9 to exit");
+                Console.WriteLine("Enter the product ID to scan an item. Enter 1 to view the basket, 2 to finish scanning or 9 to exit");
                 var input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
+                        _basket.PrintBasketContents();
+                        continue;
+
+                    case "2":
                         exitMenu = true;
                         break;
+
                     case "9":
                         exitMenu = true;
                         Environment.Exit(0);
@@ -106,5 +112,28 @@ namespace PointOfSaleTerminal.App
             }
         }
 
+        private void DisplayMenuFour()
+        {
+            var exitMenu = false;
+            while (!exitMenu)
+            {
+                Console.WriteLine("Enter 1 to view the Basket, 2 to calculate total or 9 to exit");
+                var input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        _basket.PrintBasketContents();
+                        break;
+                    case "2":
+                        Console.WriteLine(_basket.CalculateBasketTotal());
+                        exitMenu = true;
+                        break;
+                    case "9":
+                        exitMenu = true;
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+        }
     }
 }
