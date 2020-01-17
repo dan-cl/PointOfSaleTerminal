@@ -8,10 +8,12 @@ namespace PointOfSaleTerminal.App
     public class Terminal
     {
         private readonly HashSet<IProduct> _productList;
+        private readonly IBasket _basket;
 
-        public Terminal(HashSet<IProduct> productList)
+        public Terminal(HashSet<IProduct> productList, IBasket basket)
         {
             _productList = productList;
+            _basket = basket;
         }
 
         public void Start()
@@ -32,6 +34,32 @@ namespace PointOfSaleTerminal.App
                     case "1":
                         var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
                         addProductMenu.DisplayMenu();
+                        exitMenu = true;
+                        break;
+                    case "9":
+                        exitMenu = true;
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input\n");
+                        break;
+                }
+            }
+        }
+
+        private void DisplayMenuTwo()
+        {
+            var exitMenu = false;
+            while (!exitMenu)
+            {
+                Console.WriteLine("Press 1 to add another product, 2 to start scanning items or 9 to exit");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
+                        addProductMenu.DisplayMenu();
+                        break;
+                    case "2":
                         exitMenu = true;
                         break;
                     case "9":
@@ -68,7 +96,7 @@ namespace PointOfSaleTerminal.App
                 var product = _productList.SingleOrDefault(x => x.ProductId == input?.ToUpper());
                 if (product != null)
                 {
-                    //Add product to basket
+                    _basket.AddToBasket(product);
                     Console.WriteLine("Product added to basket");
                 }
                 else
@@ -78,30 +106,5 @@ namespace PointOfSaleTerminal.App
             }
         }
 
-        private void DisplayMenuTwo()
-        {
-            var exitMenu = false;
-            while (!exitMenu)
-            {
-                Console.WriteLine("Press 1 to add another product, 2 to start scanning items or 9 to exit");
-                switch (Console.ReadLine())
-                {
-                    case "1":
-                        var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
-                        addProductMenu.DisplayMenu();
-                        break;
-                    case "2":
-                        exitMenu = true;
-                        break;
-                    case "9":
-                        exitMenu = true;
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input\n");
-                        break;
-                }
-            }
-        }
     }
 }

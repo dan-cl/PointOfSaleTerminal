@@ -28,7 +28,7 @@ namespace PointOfSaleTerminal.App.Menus
         private void EnterProductIdMessage()
         {
             const string message = "Enter product ID:";
-            const string invalidInputMessage = "Invalid product ID, Product ID must be 1 character";
+            const string invalidInputMessage = "Invalid product ID, Product ID must be a single letter";
             DisplayMessageAndValidateResponse(message, invalidInputMessage, _productFactory.ValidProductId);
         }
 

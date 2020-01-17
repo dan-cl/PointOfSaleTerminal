@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace PointOfSaleTerminal.App
 {
@@ -19,7 +21,7 @@ namespace PointOfSaleTerminal.App
 
         public bool ValidProductId(string productId)
         {
-            if (productId.Length != 1)
+            if (productId.Length != 1 || !productId.All(Char.IsLetter))
                 return false; 
             
             _product.ProductId = productId.ToUpper();
