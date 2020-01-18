@@ -48,7 +48,7 @@ namespace PointOfSaleTerminal.Test.Basket
         }
 
         [Theory]
-        [MemberData(nameof(GetTestData))]
+        [MemberData(nameof(TestData))]
         public void CalculateBasketTotal_CalculatesTheCorrectTotal(List<int> listOfQuantities, decimal expectedPrice)
         {
             //Arrange
@@ -123,7 +123,7 @@ namespace PointOfSaleTerminal.Test.Basket
         }
 
         //quantity and price test data
-        public static IEnumerable<object[]> GetTestData =>
+        public static IEnumerable<object[]> TestData =>
             new List<object[]>
             {
                 //quantities for products {A, B, C, D}, and expected total price

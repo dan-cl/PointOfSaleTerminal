@@ -76,24 +76,9 @@ namespace PointOfSaleTerminal.Test.Product
 
         public class ValidUnitPriceTests : ProductFactoryTests
         {
-            private const string ValidPrice1 = "$4.87";
-            private const string ValidPrice2 = "100.56";
-            private const string ValidPrice3 = "0";
-            private const string ValidPrice4 = "5";
-            private const string ValidPrice5 = "10,000";
-
-
-            private const string InvalidPrice1 = "";
-            private const string InvalidPrice2 = "A";
-            private const string InvalidPrice3 = "45.67.98";
-            private const string InvalidPrice4 = "x56";
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidUnitPrice_PriceIsValid_ReturnsTrue(string validPrice)
             {
                 //Arrange
@@ -108,11 +93,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidUnitPrice_PriceIsValid_SetsTheUnitPrice(string validPrice)
             {
                 //Arrange
@@ -127,10 +108,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_ReturnsFalse(string invalidPrice)
             {
                 //Arrange
@@ -145,10 +123,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_DoesNotSetTheUnitPrice(string invalidPrice)
             {
                 //Arrange
@@ -241,24 +216,9 @@ namespace PointOfSaleTerminal.Test.Product
 
         public class ValidPackPriceTests : ProductFactoryTests
         {
-            private const string ValidPrice1 = "$4.87";
-            private const string ValidPrice2 = "100.56";
-            private const string ValidPrice3 = "0";
-            private const string ValidPrice4 = "5";
-            private const string ValidPrice5 = "10,000";
-
-
-            private const string InvalidPrice1 = "";
-            private const string InvalidPrice2 = "A";
-            private const string InvalidPrice3 = "45.67.98";
-            private const string InvalidPrice4 = "x56";
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidPackPrice_PriceIsValid_ReturnsTrue(string validPrice)
             {
                 //Arrange
@@ -273,11 +233,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidPackPrice_PriceIsValid_SetsThePackPrice(string validPrice)
             {
                 //Arrange
@@ -292,10 +248,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidPackPrice_PriceIsInvalid_ReturnsFalse(string invalidPrice)
             {
                 //Arrange
@@ -310,10 +263,7 @@ namespace PointOfSaleTerminal.Test.Product
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_DoesNotSetThePackPrice(string invalidPrice)
             {
                 //Arrange
@@ -378,5 +328,24 @@ namespace PointOfSaleTerminal.Test.Product
                 _productFactory = new ProductFactory(_mockProduct2.Object);
             }
         }
+
+        public static IEnumerable<object[]> ValidPriceTestData =>
+            new List<object[]>
+            {
+                new object[] {"$4.87"},
+                new object[] {"100.56"},
+                new object[] { "0" },
+                new object[] { "5" },
+                new object[] { "10,000" },
+            };
+
+        public static IEnumerable<object[]> InvalidPriceTestData =>
+            new List<object[]>
+            {
+                new object[] {""},
+                new object[] {"A"},
+                new object[] { "45.67.98" },
+                new object[] { "x56" },
+            };
     }
 }
