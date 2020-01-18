@@ -10,6 +10,7 @@ namespace PointOfSaleTerminal.App.Product
         int GetHashCode([DisallowNull] IProduct obj);
     }
 
+    //Use hash code of productId string to compare objects in HashSet<IProduct>
     public class ProductEqualityComparer : IEqualityComparer<IProduct>, IProductEqualityComparer
     {
         public bool Equals(IProduct x, IProduct y)

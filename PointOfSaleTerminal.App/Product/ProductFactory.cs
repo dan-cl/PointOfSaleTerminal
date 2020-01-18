@@ -10,7 +10,7 @@ namespace PointOfSaleTerminal.App.Product
 
         public ProductFactory()
         {
-            _product = new App.Product.Product();
+            _product = new Product();
         }
 
         public ProductFactory(IProduct product)
@@ -18,7 +18,7 @@ namespace PointOfSaleTerminal.App.Product
             _product = product;
         }
 
-        public bool ValidProductId(string productId)
+        public bool SetProductId(string productId)
         {
             if (productId.Length != 1 || !productId.All(char.IsLetter))
                 return false; 
@@ -27,9 +27,9 @@ namespace PointOfSaleTerminal.App.Product
             return true;
         }
 
-        public bool ValidUnitPrice(string unitPrice)
+        public bool SetUnitPrice(string unitPrice)
         {
-            if (ValidatePrice(unitPrice, out var result))
+            if (ValidPrice(unitPrice, out var result))
             {
                 _product.UnitPrice = result;
                 return true;
@@ -38,7 +38,7 @@ namespace PointOfSaleTerminal.App.Product
             return false;
         }
 
-        public bool ValidPackSize(string packSize)
+        public bool SetPackSize(string packSize)
         {
             if (int.TryParse(packSize, out var result))
             {
@@ -49,9 +49,9 @@ namespace PointOfSaleTerminal.App.Product
             return false;
         }
 
-        public bool ValidPackPrice(string packPrice)
+        public bool SetPackPrice(string packPrice)
         {
-            if (ValidatePrice(packPrice, out var result))
+            if (ValidPrice(packPrice, out var result))
             {
                 _product.PackPrice = result;
                 return true;
@@ -65,7 +65,7 @@ namespace PointOfSaleTerminal.App.Product
             productList.Add(_product);
         }
 
-        private static bool ValidatePrice(string price, out decimal result)
+        private static bool ValidPrice(string price, out decimal result)
         {
             var style = NumberStyles.Number | NumberStyles.AllowCurrencySymbol;
             var culture = CultureInfo.CreateSpecificCulture("en-AU");

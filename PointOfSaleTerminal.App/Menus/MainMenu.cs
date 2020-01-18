@@ -45,7 +45,7 @@ namespace PointOfSaleTerminal.App.Menus
                         Environment.Exit(0);
                         break;
                     default:
-                       UserInterface.UserInterface.ClearScreen();
+                        UserInterface.UserInterface.ClearScreen();
                         break;
                 }
             }
@@ -53,7 +53,7 @@ namespace PointOfSaleTerminal.App.Menus
 
         private void DisplayMenuTwo()
         {
-           UserInterface.UserInterface.ClearScreen();
+            UserInterface.UserInterface.ClearScreen();
             var exitMenu = false;
             while (!exitMenu)
             {
@@ -100,6 +100,7 @@ namespace PointOfSaleTerminal.App.Menus
                         break;
                 }
 
+                //Continue to next menu if 1 or 9 selected, otherwise display either message below
                 if (exitMenu) continue;
 
                 var product = _productList.SingleOrDefault(x => x.ProductId == input?.ToUpper());
@@ -128,7 +129,7 @@ namespace PointOfSaleTerminal.App.Menus
                 switch (input)
                 {
                     case "1":
-                       UserInterface.UserInterface.ClearScreen();
+                        UserInterface.UserInterface.ClearScreen();
                         UserInterface.UserInterface.DisplayMessage($"BASKET TOTAL: {_basket.CalculateBasketTotal():C}\n\n\n");
                         exitMenu = true;
                         break;
@@ -142,7 +143,7 @@ namespace PointOfSaleTerminal.App.Menus
 
         private void ClearConsoleAndPrintBasket()
         {
-           UserInterface.UserInterface.ClearScreen();
+            UserInterface.UserInterface.ClearScreen();
             _basket.PrintBasketContents();
         }
     }

@@ -21,7 +21,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidProductId(ValidId);
+                productFactory.SetProductId(ValidId);
 
                 //Assert
                 mock.VerifySet(x => x.ProductId = ValidId);
@@ -35,7 +35,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidProductId(ValidId);
+                var result = productFactory.SetProductId(ValidId);
 
                 //Assert
                 Assert.True(result);
@@ -51,7 +51,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidProductId(invalidId);
+                productFactory.SetProductId(invalidId);
 
                 //Assert
                 mock.VerifySet(x => x.ProductId = It.IsAny<string>(), Times.Never());
@@ -67,7 +67,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidProductId(invalidId);
+                var result = productFactory.SetProductId(invalidId);
 
                 //Assert
                 Assert.False(result);
@@ -101,7 +101,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(validPrice);
+                var result = productFactory.SetUnitPrice(validPrice);
 
                 //Assert
                 Assert.True(result);
@@ -120,7 +120,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(validPrice);
+                var result = productFactory.SetUnitPrice(validPrice);
 
                 //Assert
                 mock.VerifySet(x => x.UnitPrice = It.IsAny<decimal>(), Times.Once);
@@ -138,7 +138,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(invalidPrice);
+                var result = productFactory.SetUnitPrice(invalidPrice);
 
                 //Assert
                 Assert.False(result);
@@ -156,7 +156,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(invalidPrice);
+                var result = productFactory.SetUnitPrice(invalidPrice);
 
                 //Assert
                 mock.VerifySet(x => x.UnitPrice = It.IsAny<decimal>(), Times.Never);
@@ -182,7 +182,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidPackSize(packSize);
+                productFactory.SetPackSize(packSize);
 
                 //Assert
                 mock.VerifySet(x => x.PackSize = It.IsAny<int>(), Times.Once);
@@ -198,7 +198,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackSize(packSize);
+                var result = productFactory.SetPackSize(packSize);
 
                 //Assert
                 Assert.True(result);
@@ -215,7 +215,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidPackSize(invalidPackSize);
+                productFactory.SetPackSize(invalidPackSize);
 
                 //Assert
                 mock.VerifySet(x => x.PackSize = It.IsAny<int>(), Times.Never());
@@ -232,7 +232,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackSize(invalidPackSize);
+                var result = productFactory.SetPackSize(invalidPackSize);
 
                 //Assert
                 Assert.False(result);
@@ -266,7 +266,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(validPrice);
+                var result = productFactory.SetPackPrice(validPrice);
 
                 //Assert
                 Assert.True(result);
@@ -285,7 +285,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(validPrice);
+                var result = productFactory.SetPackPrice(validPrice);
 
                 //Assert
                 mock.VerifySet(x => x.PackPrice = It.IsAny<decimal>(), Times.Once);
@@ -303,7 +303,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(invalidPrice);
+                var result = productFactory.SetPackPrice(invalidPrice);
 
                 //Assert
                 Assert.False(result);
@@ -321,7 +321,7 @@ namespace PointOfSaleTerminal.Test.Product
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(invalidPrice);
+                var result = productFactory.SetPackPrice(invalidPrice);
 
                 //Assert
                 mock.VerifySet(x => x.PackPrice = It.IsAny<decimal>(), Times.Never);
