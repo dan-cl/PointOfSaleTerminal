@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PointOfSaleTerminal.App.Menus;
+using PointOfSaleTerminal.App.Basket;
+using PointOfSaleTerminal.App.Product;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Menus
 {
-    public class Terminal
+    public class MainMenu
     {
         private readonly HashSet<IProduct> _productList;
         private readonly IBasket _basket;
 
-        public Terminal(HashSet<IProduct> productList, IBasket basket)
+        public MainMenu(HashSet<IProduct> productList, IBasket basket)
         {
             _productList = productList;
             _basket = basket;
@@ -26,13 +27,13 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuOne()
         {
-            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
+            UserInterface.UserInterface.ClearScreen();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("Welcome to the terminal \n\nOPTIONS \n1: Add product to the system \n9: Exit terminal");
-                switch (Console.ReadLine())
+                UserInterface.UserInterface.DisplayMessage("Welcome to the terminal \n\nOPTIONS \n1: Add product to the system \n9: Exit terminal");
+                switch (UserInterface.UserInterface.GetInput())
                 {
                     case "1":
                         var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
@@ -44,7 +45,7 @@ namespace PointOfSaleTerminal.App
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.Clear();
+                        UserInterface.UserInterface.ClearScreen();
                         break;
                 }
             }
@@ -52,17 +53,18 @@ namespace PointOfSaleTerminal.App
 
         private void DisplayMenuTwo()
         {
-            Console.Clear();
+            UserInterface.UserInterface.ClearScreen();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("OPTIONS \n\n1 Add another product \n2 Start scanning items \n9 Exit");
-                switch (Console.ReadLine())
+                UserInterface.UserInterface.DisplayMessage("OPTIONS \n\n1: Add another product \n2: Start scanning items \n9: Exit");
+                var input = UserInterface.UserInterface.GetInput();
+                switch (input)
                 {
                     case "1":
                         var addProductMenu = new AddProductMenu(_productList, new ProductFactory());
                         addProductMenu.DisplayMenu();
-                        Console.Clear();
+                        UserInterface.UserInterface.ClearScreen();
                         break;
                     case "2":
                         exitMenu = true;
@@ -72,7 +74,7 @@ namespace PointOfSaleTerminal.App
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.Clear();
+                       UserInterface.UserInterface.ClearScreen();
                         break;
                 }
             }
@@ -84,8 +86,8 @@ namespace PointOfSaleTerminal.App
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("OPTIONS \n\nEnter the product ID to scan an item OR \n1 Finish scanning \n9 Exit");
-                var input = Console.ReadLine();
+                UserInterface.UserInterface.DisplayMessage("OPTIONS \n\nEnter the product ID to scan an item OR \n1: Finish scanning \n9: Exit");
+                var input = UserInterface.UserInterface.GetInput();
                 switch (input)
                 {
                     case "1":
@@ -98,6 +100,7 @@ namespace PointOfSaleTerminal.App
                         break;
                 }
 
+                //Continue to next menu if 1 or 9 selected, otherwise display either message below
                 if (exitMenu) continue;
 
                 var product = _productList.SingleOrDefault(x => x.ProductId == input?.ToUpper());
@@ -105,29 +108,29 @@ namespace PointOfSaleTerminal.App
                 {
                     _basket.AddToBasket(product);
                     ClearConsoleAndPrintBasket();
-                    Console.WriteLine("Product added to basket\n\n");
+                    UserInterface.UserInterface.DisplayMessage("Product added to basket\n\n");
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Invalid product code entered\n\n");
+                    ClearConsoleAndPrintBasket();
+                    UserInterface.UserInterface.DisplayMessage("Invalid product code entered\n\n");
                 }
             }
         }
 
         private void DisplayMenuFour()
         {
-            ClearConsoleAndPrintBasket();
             var exitMenu = false;
             while (!exitMenu)
             {
-                Console.WriteLine("OPTIONS: \n1 Calculate total \n9 Exit");
-                var input = Console.ReadLine();
+                ClearConsoleAndPrintBasket();
+                UserInterface.UserInterface.DisplayMessage("OPTIONS: \n1: Calculate total \n9: Exit");
+                var input = UserInterface.UserInterface.GetInput();
                 switch (input)
                 {
                     case "1":
-                        Console.Clear();
-                        Console.WriteLine($"BASKET TOTAL: {_basket.CalculateBasketTotal():C}\n\n\n");
+                        UserInterface.UserInterface.ClearScreen();
+                        UserInterface.UserInterface.DisplayMessage($"BASKET TOTAL: {_basket.CalculateBasketTotal():C}\n\n\n");
                         exitMenu = true;
                         break;
                     case "9":
@@ -140,9 +143,8 @@ namespace PointOfSaleTerminal.App
 
         private void ClearConsoleAndPrintBasket()
         {
-            Console.Clear();
+            UserInterface.UserInterface.ClearScreen();
             _basket.PrintBasketContents();
-
         }
     }
 }

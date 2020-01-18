@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Moq;
-using PointOfSaleTerminal.App;
+using PointOfSaleTerminal.App.Product;
 using Xunit;
 
-namespace PointOfSaleTerminal.Test
+namespace PointOfSaleTerminal.Test.Product
 {
     public class ProductFactoryTests
     {
@@ -21,7 +21,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidProductId(ValidId);
+                productFactory.SetProductId(ValidId);
 
                 //Assert
                 mock.VerifySet(x => x.ProductId = ValidId);
@@ -35,7 +35,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidProductId(ValidId);
+                var result = productFactory.SetProductId(ValidId);
 
                 //Assert
                 Assert.True(result);
@@ -51,7 +51,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidProductId(invalidId);
+                productFactory.SetProductId(invalidId);
 
                 //Assert
                 mock.VerifySet(x => x.ProductId = It.IsAny<string>(), Times.Never());
@@ -67,7 +67,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidProductId(invalidId);
+                var result = productFactory.SetProductId(invalidId);
 
                 //Assert
                 Assert.False(result);
@@ -76,24 +76,9 @@ namespace PointOfSaleTerminal.Test
 
         public class ValidUnitPriceTests : ProductFactoryTests
         {
-            private const string ValidPrice1 = "$4.87";
-            private const string ValidPrice2 = "100.56";
-            private const string ValidPrice3 = "0";
-            private const string ValidPrice4 = "5";
-            private const string ValidPrice5 = "10,000";
-
-
-            private const string InvalidPrice1 = "";
-            private const string InvalidPrice2 = "A";
-            private const string InvalidPrice3 = "45.67.98";
-            private const string InvalidPrice4 = "x56";
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidUnitPrice_PriceIsValid_ReturnsTrue(string validPrice)
             {
                 //Arrange
@@ -101,18 +86,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(validPrice);
+                var result = productFactory.SetUnitPrice(validPrice);
 
                 //Assert
                 Assert.True(result);
             }
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidUnitPrice_PriceIsValid_SetsTheUnitPrice(string validPrice)
             {
                 //Arrange
@@ -120,17 +101,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(validPrice);
+                var result = productFactory.SetUnitPrice(validPrice);
 
                 //Assert
                 mock.VerifySet(x => x.UnitPrice = It.IsAny<decimal>(), Times.Once);
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_ReturnsFalse(string invalidPrice)
             {
                 //Arrange
@@ -138,17 +116,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(invalidPrice);
+                var result = productFactory.SetUnitPrice(invalidPrice);
 
                 //Assert
                 Assert.False(result);
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_DoesNotSetTheUnitPrice(string invalidPrice)
             {
                 //Arrange
@@ -156,7 +131,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidUnitPrice(invalidPrice);
+                var result = productFactory.SetUnitPrice(invalidPrice);
 
                 //Assert
                 mock.VerifySet(x => x.UnitPrice = It.IsAny<decimal>(), Times.Never);
@@ -182,7 +157,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidPackSize(packSize);
+                productFactory.SetPackSize(packSize);
 
                 //Assert
                 mock.VerifySet(x => x.PackSize = It.IsAny<int>(), Times.Once);
@@ -198,7 +173,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackSize(packSize);
+                var result = productFactory.SetPackSize(packSize);
 
                 //Assert
                 Assert.True(result);
@@ -215,7 +190,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                productFactory.ValidPackSize(invalidPackSize);
+                productFactory.SetPackSize(invalidPackSize);
 
                 //Assert
                 mock.VerifySet(x => x.PackSize = It.IsAny<int>(), Times.Never());
@@ -232,7 +207,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackSize(invalidPackSize);
+                var result = productFactory.SetPackSize(invalidPackSize);
 
                 //Assert
                 Assert.False(result);
@@ -241,24 +216,9 @@ namespace PointOfSaleTerminal.Test
 
         public class ValidPackPriceTests : ProductFactoryTests
         {
-            private const string ValidPrice1 = "$4.87";
-            private const string ValidPrice2 = "100.56";
-            private const string ValidPrice3 = "0";
-            private const string ValidPrice4 = "5";
-            private const string ValidPrice5 = "10,000";
-
-
-            private const string InvalidPrice1 = "";
-            private const string InvalidPrice2 = "A";
-            private const string InvalidPrice3 = "45.67.98";
-            private const string InvalidPrice4 = "x56";
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidPackPrice_PriceIsValid_ReturnsTrue(string validPrice)
             {
                 //Arrange
@@ -266,18 +226,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(validPrice);
+                var result = productFactory.SetPackPrice(validPrice);
 
                 //Assert
                 Assert.True(result);
             }
 
             [Theory()]
-            [InlineData(ValidPrice1)]
-            [InlineData(ValidPrice2)]
-            [InlineData(ValidPrice3)]
-            [InlineData(ValidPrice4)]
-            [InlineData(ValidPrice5)]
+            [MemberData(nameof(ValidPriceTestData))]
             public void ValidPackPrice_PriceIsValid_SetsThePackPrice(string validPrice)
             {
                 //Arrange
@@ -285,17 +241,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(validPrice);
+                var result = productFactory.SetPackPrice(validPrice);
 
                 //Assert
                 mock.VerifySet(x => x.PackPrice = It.IsAny<decimal>(), Times.Once);
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidPackPrice_PriceIsInvalid_ReturnsFalse(string invalidPrice)
             {
                 //Arrange
@@ -303,17 +256,14 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(invalidPrice);
+                var result = productFactory.SetPackPrice(invalidPrice);
 
                 //Assert
                 Assert.False(result);
             }
 
             [Theory()]
-            [InlineData(InvalidPrice1)]
-            [InlineData(InvalidPrice2)]
-            [InlineData(InvalidPrice3)]
-            [InlineData(InvalidPrice4)]
+            [MemberData(nameof(InvalidPriceTestData))]
             public void ValidUnitPrice_PriceIsInvalid_DoesNotSetThePackPrice(string invalidPrice)
             {
                 //Arrange
@@ -321,7 +271,7 @@ namespace PointOfSaleTerminal.Test
                 var productFactory = new ProductFactory(mock.Object);
 
                 //Act
-                var result = productFactory.ValidPackPrice(invalidPrice);
+                var result = productFactory.SetPackPrice(invalidPrice);
 
                 //Assert
                 mock.VerifySet(x => x.PackPrice = It.IsAny<decimal>(), Times.Never);
@@ -378,5 +328,24 @@ namespace PointOfSaleTerminal.Test
                 _productFactory = new ProductFactory(_mockProduct2.Object);
             }
         }
+
+        public static IEnumerable<object[]> ValidPriceTestData =>
+            new List<object[]>
+            {
+                new object[] {"$4.87"},
+                new object[] {"100.56"},
+                new object[] { "0" },
+                new object[] { "5" },
+                new object[] { "10,000" },
+            };
+
+        public static IEnumerable<object[]> InvalidPriceTestData =>
+            new List<object[]>
+            {
+                new object[] {""},
+                new object[] {"A"},
+                new object[] { "45.67.98" },
+                new object[] { "x56" },
+            };
     }
 }

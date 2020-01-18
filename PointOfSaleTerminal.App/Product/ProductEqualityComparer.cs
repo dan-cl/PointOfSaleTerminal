@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Product
 {
     public interface IProductEqualityComparer
     {
@@ -10,6 +10,7 @@ namespace PointOfSaleTerminal.App
         int GetHashCode([DisallowNull] IProduct obj);
     }
 
+    //Use hash code of productId string to compare objects in HashSet<IProduct>
     public class ProductEqualityComparer : IEqualityComparer<IProduct>, IProductEqualityComparer
     {
         public bool Equals(IProduct x, IProduct y)

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using PointOfSaleTerminal.App.Product;
 
-namespace PointOfSaleTerminal.App
+namespace PointOfSaleTerminal.App.Basket
 {
     public interface IBasket
     {
@@ -28,14 +27,14 @@ namespace PointOfSaleTerminal.App
         {
             
             var basketItem = BasketItems.SingleOrDefault(x => x.Product.ProductId == product.ProductId);
-            if (basketItem != null)
-            {
-                basketItem.IncreaseItemQuantity();
-            }
-            else
+            if (basketItem == null)
             {
                 var newBasketItem = new BasketItem(product);
                 BasketItems.Add(newBasketItem);
+            }
+            else
+            {
+                basketItem.IncreaseItemQuantity();
             }
         }
 
@@ -43,19 +42,19 @@ namespace PointOfSaleTerminal.App
         {
             if (BasketItems.Count == 0)
             {
-                Console.WriteLine("Basket Empty!\n\n");
+                UserInterface.UserInterface.DisplayMessage("Basket Empty!\n\n");
             }
             else
             {
-                Console.WriteLine("BASKET:");
-                Console.WriteLine($"({"ProductID",5} {"Quantity", 10})");
+                UserInterface.UserInterface.DisplayMessage("BASKET:");
+                UserInterface.UserInterface.DisplayMessage($"({"ProductID",5} {"Quantity", 10})");
                 foreach (var basketItem in BasketItems)
                 {
                     var productId = basketItem.Product.ProductId;
                     var quantity = basketItem.Quantity;
-                    Console.WriteLine($"{productId,5} {quantity,10}");
+                    UserInterface.UserInterface.DisplayMessage($"{productId,5} {quantity,10}");
                 }
-                Console.WriteLine("\n\n");
+                UserInterface.UserInterface.DisplayMessage("\n\n");
             }
         }
         public decimal CalculateBasketTotal()
@@ -82,17 +81,5 @@ namespace PointOfSaleTerminal.App
             var totalDiscount = product.DiscountPerPack * numberOfPacks;
             return totalDiscount;
         }
-
-        //private decimal CalculateDiscount(IBasketItem basketItem)
-        //{
-        //    var product = basketItem.Product;
-        //    var packSize = product.PackSize;
-        //    var discountPerPack = product.PackPrice * product.UnitPrice - product.PackPrice;
-        //    int numberOfPacks = basketItem.Quantity / packSize;
-        //    if (numberOfPacks >= 1)
-        //        return numberOfPacks * discountPerPack;
-
-        //    return 0;
-        //}
     }
 }

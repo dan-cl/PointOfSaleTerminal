@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PointOfSaleTerminal.App.Menus;
+using PointOfSaleTerminal.App.Product;
 
 namespace PointOfSaleTerminal.App
 {
@@ -9,8 +10,8 @@ namespace PointOfSaleTerminal.App
         static void Main(string[] args)
         {
             var productList = new HashSet<IProduct>(new ProductEqualityComparer());
-            var basket = new Basket();
-            var terminal = new Terminal(productList, basket);
+            var basket = new Basket.Basket();
+            var terminal = new MainMenu(productList, basket);
             terminal.Start();
         }
     }

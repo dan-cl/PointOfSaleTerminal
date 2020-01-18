@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using PointOfSaleTerminal.App;
+using PointOfSaleTerminal.App.Basket;
+using PointOfSaleTerminal.App.Product;
 using Xunit;
 
-namespace PointOfSaleTerminal.Test
+namespace PointOfSaleTerminal.Test.Basket
 {
     public class BasketTests
     {
@@ -17,7 +18,7 @@ namespace PointOfSaleTerminal.Test
         public void AddToBasket_ProductNotAlreadyInBasket_AddsProductToBasket()
         {
             //Arrange
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
             var mock = new Mock<IProduct>();
 
             //Act
@@ -33,7 +34,7 @@ namespace PointOfSaleTerminal.Test
         public void AddToBasket_ProductAlreadyInBasket_DoesNotAddProductToBasket()
         {
             //Arrange
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
             var mock = new Mock<IProduct>();
 
             //Act
@@ -47,12 +48,12 @@ namespace PointOfSaleTerminal.Test
         }
 
         [Theory]
-        [MemberData(nameof(GetTestData))]
+        [MemberData(nameof(TestData))]
         public void CalculateBasketTotal_CalculatesTheCorrectTotal(List<int> listOfQuantities, decimal expectedPrice)
         {
             //Arrange
             var productList = new List<IProduct>();
-            var basket = new Basket();
+            var basket = new App.Basket.Basket();
 
             SetupMockProducts(productList);
 
@@ -122,7 +123,7 @@ namespace PointOfSaleTerminal.Test
         }
 
         //quantity and price test data
-        public static IEnumerable<object[]> GetTestData =>
+        public static IEnumerable<object[]> TestData =>
             new List<object[]>
             {
                 //quantities for products {A, B, C, D}, and expected total price
