@@ -62,15 +62,15 @@ namespace PointOfSaleTerminal.App.Menus
         private static void DisplayMessageAndValidateResponse(string message, string invalidInputMessage, InputValidator inputValidator)
         {
             bool finished = false;
-            Console.Clear();
+           UserInterface.UserInterface.ClearScreen();
             while (!finished)
             {
-                Console.WriteLine(message);
-                finished = inputValidator(Console.ReadLine());
+                UserInterface.UserInterface.DisplayMessage(message);
+                finished = inputValidator(UserInterface.UserInterface.GetInput());
                 if (finished) continue;
 
-                Console.Clear();
-                Console.WriteLine(invalidInputMessage);
+               UserInterface.UserInterface.ClearScreen();
+                UserInterface.UserInterface.DisplayMessage(invalidInputMessage);
             }
         }
     }

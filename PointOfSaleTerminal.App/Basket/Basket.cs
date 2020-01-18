@@ -28,14 +28,14 @@ namespace PointOfSaleTerminal.App.Basket
         {
             
             var basketItem = BasketItems.SingleOrDefault(x => x.Product.ProductId == product.ProductId);
-            if (basketItem != null)
-            {
-                basketItem.IncreaseItemQuantity();
-            }
-            else
+            if (basketItem == null)
             {
                 var newBasketItem = new BasketItem(product);
                 BasketItems.Add(newBasketItem);
+            }
+            else
+            {
+                basketItem.IncreaseItemQuantity();
             }
         }
 
@@ -43,19 +43,19 @@ namespace PointOfSaleTerminal.App.Basket
         {
             if (BasketItems.Count == 0)
             {
-                Console.WriteLine("Basket Empty!\n\n");
+                UserInterface.UserInterface.DisplayMessage("Basket Empty!\n\n");
             }
             else
             {
-                Console.WriteLine("BASKET:");
-                Console.WriteLine($"({"ProductID",5} {"Quantity", 10})");
+                UserInterface.UserInterface.DisplayMessage("BASKET:");
+                UserInterface.UserInterface.DisplayMessage($"({"ProductID",5} {"Quantity", 10})");
                 foreach (var basketItem in BasketItems)
                 {
                     var productId = basketItem.Product.ProductId;
                     var quantity = basketItem.Quantity;
-                    Console.WriteLine($"{productId,5} {quantity,10}");
+                    UserInterface.UserInterface.DisplayMessage($"{productId,5} {quantity,10}");
                 }
-                Console.WriteLine("\n\n");
+                UserInterface.UserInterface.DisplayMessage("\n\n");
             }
         }
         public decimal CalculateBasketTotal()
